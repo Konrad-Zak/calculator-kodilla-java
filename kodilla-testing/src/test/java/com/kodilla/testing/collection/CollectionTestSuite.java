@@ -2,8 +2,12 @@ package com.kodilla.testing.collection;
 
 import org.junit.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CollectionTestSuite {
+    private OddNumbersExterminator oddNumbersExterminator;
+
     @Before
     public void before(){
         System.out.println("Test Case (collection): begin");
@@ -23,29 +27,22 @@ public class CollectionTestSuite {
     @Test
     public void testOddNumbersExterminatorEmptyList(){
         //Given
-        OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
-        ArrayList<Integer> testList = new ArrayList<>();
+        oddNumbersExterminator = new OddNumbersExterminator();
         //When
-        ArrayList<Integer> expectedList = new ArrayList<>();
-        ArrayList<Integer> resultList = oddNumbersExterminator.exterminate(testList);
+        ArrayList<Integer> resultList = oddNumbersExterminator.exterminate(new ArrayList<>());
         //Then
-        Assert.assertEquals(expectedList,resultList);
+        Assert.assertTrue(resultList.isEmpty());
     }
     @Test
     public void testOddNumbersExterminatorNormalList(){
         //Given
-        OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
+        oddNumbersExterminator = new OddNumbersExterminator();
         ArrayList<Integer> testList = new ArrayList<>();
         for (int i = 0; i <7 ; i++) {
             testList.add(i);
         }
         //When
-        ArrayList<Integer> expectedList = new ArrayList<>();
-        expectedList.add(0);
-        expectedList.add(2);
-        expectedList.add(4);
-        expectedList.add(6);
-
+        List<Integer> expectedList =Arrays.asList(0,2,4,6);
         ArrayList<Integer> resultList = oddNumbersExterminator.exterminate(testList);
         //Then
         Assert.assertEquals(expectedList,resultList);
