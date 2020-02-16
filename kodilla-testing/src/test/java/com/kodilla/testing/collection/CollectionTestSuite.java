@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CollectionTestSuite {
-    private OddNumbersExterminator oddNumbersExterminator;
+    private OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
 
     @Before
     public void before(){
@@ -26,8 +26,6 @@ public class CollectionTestSuite {
     }
     @Test
     public void testOddNumbersExterminatorEmptyList(){
-        //Given
-        oddNumbersExterminator = new OddNumbersExterminator();
         //When
         ArrayList<Integer> resultList = oddNumbersExterminator.exterminate(new ArrayList<>());
         //Then
@@ -36,7 +34,6 @@ public class CollectionTestSuite {
     @Test
     public void testOddNumbersExterminatorNormalList(){
         //Given
-        oddNumbersExterminator = new OddNumbersExterminator();
         ArrayList<Integer> testList = new ArrayList<>();
         for (int i = 0; i <7 ; i++) {
             testList.add(i);
