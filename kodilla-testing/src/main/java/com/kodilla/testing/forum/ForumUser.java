@@ -14,7 +14,8 @@ public class ForumUser {
         this.realName = realName;
     }
     public void addPost(String author, String postBody){
-        // do nothing
+        ForumPost thePost = new ForumPost(postBody, author);
+        posts.add(thePost);
     }
 
     public void addComment(ForumPost thePost, String author, String commentBody){
@@ -22,8 +23,7 @@ public class ForumUser {
     }
 
     public int getPostsQuantity(){
-        // return 100 temporarily
-        return 100;
+        return posts.size();
     }
 
     public int getCommentsQuantity(){
