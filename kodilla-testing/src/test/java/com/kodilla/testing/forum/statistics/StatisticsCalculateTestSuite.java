@@ -22,6 +22,7 @@ public class StatisticsCalculateTestSuite {
     double[] resultAvgCommentsPerUser = {1,1,10,0,0};
     double[] resultAvgCommentsPerPost = {0,0.1,10,0,1};
 
+
     //Variable
     Statistics statisticsMock = mock(Statistics.class);
     StatisticsCalculate statisticsCalculate = new StatisticsCalculate();
@@ -45,8 +46,8 @@ public class StatisticsCalculateTestSuite {
         System.out.println(statisticsCalculate);
     }
 
-        @RepeatedTest(value = 5)
-        public void calculateAdvStatistics () {
+    @RepeatedTest(value = 5)
+    public void calculateAdvStatistics () {
         //Given
         when(statisticsMock.usersNames()).thenReturn(testQuantityOfUser);
         when(statisticsMock.postsCount()).thenReturn(testQuantityOfPost);
@@ -54,8 +55,15 @@ public class StatisticsCalculateTestSuite {
         //When
         statisticsCalculate.calculateAdvStatistics(statisticsMock);
         //Then
-        Assert.assertEquals(resultAvgPostsPerUser[testCounter-1], statisticsCalculate.getAvgPostsPerUser(), 0);
-        Assert.assertEquals(resultAvgCommentsPerUser[testCounter-1], statisticsCalculate.getAvgCommentsPerUser(), 0);
-        Assert.assertEquals(resultAvgCommentsPerPost[testCounter-1], statisticsCalculate.getAvgCommentsPerPost(), 0);
+        Assert.assertTrue(isStatisticsCalculate(statisticsCalculate));
+    }
+
+    boolean isStatisticsCalculate( StatisticsCalculate statisticsCalculate) {
+        return statisticsCalculate.getAvgPostsPerUser() == resultAvgPostsPerUser[testCounter-1] &&
+               statisticsCalculate.getAvgCommentsPerUser() == resultAvgCommentsPerUser[testCounter-1] &&
+               statisticsCalculate.getAvgCommentsPerPost() == resultAvgCommentsPerPost[testCounter-1] &&
+               statisticsCalculate.getQuantityOfUser() == (double) testQuantityOfUser.size() &&
+               statisticsCalculate.getQuantityOfPost() == (double) testQuantityOfPost &&
+               statisticsCalculate.getQuantityOfComment() == (double) testQuantityOfComment;
     }
 }

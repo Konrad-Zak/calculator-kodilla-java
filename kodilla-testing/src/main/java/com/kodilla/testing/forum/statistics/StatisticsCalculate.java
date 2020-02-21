@@ -2,15 +2,18 @@ package com.kodilla.testing.forum.statistics;
 
 
 public class StatisticsCalculate  {
-
+    private double quantityOfUser;
+    private double quantityOfPost;
+    private double quantityOfComment;
     private double avgPostsPerUser;
     private double avgCommentsPerUser;
     private double avgCommentsPerPost;
 
+
     public void calculateAdvStatistics(Statistics statistics){
-        double quantityOfUser = statistics.usersNames().size();
-        double quantityOfPost = statistics.postsCount();
-        double quantityOfComment = statistics.commentsCount();
+        quantityOfUser = statistics.usersNames().size();
+        quantityOfPost = statistics.postsCount();
+        quantityOfComment = statistics.commentsCount();
 
         if (quantityOfUser > 0){
             avgPostsPerUser = quantityOfPost / quantityOfUser;
@@ -45,5 +48,15 @@ public class StatisticsCalculate  {
         return avgCommentsPerPost;
     }
 
+    public double getQuantityOfUser() {
+        return quantityOfUser;
+    }
 
+    public double getQuantityOfPost() {
+        return quantityOfPost;
+    }
+
+    public double getQuantityOfComment() {
+        return quantityOfComment;
+    }
 }
