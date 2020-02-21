@@ -1,37 +1,36 @@
 package com.kodilla.testing.forum.statistics;
 
-import java.util.List;
 
 public class StatisticsCalculate  {
 
-    private Integer quantityOfUser;
-    private Integer quantityOfPost;
-    private Integer quantityOfComment;
-    private Double avgPostsPerUser;
-    private Double avgCommentsPerUser;
-    private Double avgCommentsPerPost;
-
-    Statistics statistics;
-
+    private double avgPostsPerUser;
+    private double avgCommentsPerUser;
+    private double avgCommentsPerPost;
 
     public void calculateAdvStatistics(Statistics statistics){
-        //List<String> forumUsers = statistics.usersNames();
-        quantityOfUser = statistics.usersNames().size();
-        quantityOfPost = statistics.postsCount();
-        quantityOfComment = statistics.commentsCount();
+        double quantityOfUser = statistics.usersNames().size();
+        double quantityOfPost = statistics.postsCount();
+        double quantityOfComment = statistics.commentsCount();
 
         if (quantityOfUser > 0){
-            avgPostsPerUser = Double.valueOf(quantityOfPost / quantityOfUser);
-            avgCommentsPerUser = Double.valueOf(quantityOfComment/quantityOfUser);
+            avgPostsPerUser = quantityOfPost / quantityOfUser;
+            avgCommentsPerUser = quantityOfComment / quantityOfUser;
         } else {
-            avgPostsPerUser = Double.valueOf(0);
-            avgCommentsPerUser = Double.valueOf(0);
+            avgPostsPerUser = 0;
+            avgCommentsPerUser = 0;
         }
         if(quantityOfPost > 0) {
-            avgCommentsPerPost = Double.valueOf(quantityOfComment / quantityOfPost);
+            avgCommentsPerPost = quantityOfComment / quantityOfPost;
         } else {
-            avgCommentsPerPost = Double.valueOf(0);
+            avgCommentsPerPost = 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "\n Average number of posts per user: " + avgPostsPerUser +
+                "\n Average number of comments per user: " + avgCommentsPerUser +
+                "\n Average number of comments per post: " + avgCommentsPerPost;
     }
 
     public double getAvgPostsPerUser() {
@@ -45,4 +44,6 @@ public class StatisticsCalculate  {
     public double getAvgCommentsPerPost() {
         return avgCommentsPerPost;
     }
+
+
 }
