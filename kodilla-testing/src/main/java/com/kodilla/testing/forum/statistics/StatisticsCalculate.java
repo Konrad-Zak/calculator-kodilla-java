@@ -2,9 +2,9 @@ package com.kodilla.testing.forum.statistics;
 
 
 public class StatisticsCalculate  {
-    private double quantityOfUser;
-    private double quantityOfPost;
-    private double quantityOfComment;
+    private int quantityOfUser;
+    private int quantityOfPost;
+    private int quantityOfComment;
     private double avgPostsPerUser;
     private double avgCommentsPerUser;
     private double avgCommentsPerPost;
@@ -15,16 +15,13 @@ public class StatisticsCalculate  {
         quantityOfPost = statistics.postsCount();
         quantityOfComment = statistics.commentsCount();
 
-        if (quantityOfUser > 0){
-            avgPostsPerUser = quantityOfPost / quantityOfUser;
-            avgCommentsPerUser = quantityOfComment / quantityOfUser;
+        if (quantityOfUser > 0 && quantityOfPost > 0 && quantityOfComment > 0){
+            avgPostsPerUser = (double) quantityOfPost / (double) quantityOfUser;
+            avgCommentsPerUser = (double) quantityOfComment / (double)quantityOfUser;
+            avgCommentsPerPost = (double) quantityOfComment / (double) quantityOfPost;
         } else {
             avgPostsPerUser = 0;
             avgCommentsPerUser = 0;
-        }
-        if(quantityOfPost > 0) {
-            avgCommentsPerPost = quantityOfComment / quantityOfPost;
-        } else {
             avgCommentsPerPost = 0;
         }
     }
