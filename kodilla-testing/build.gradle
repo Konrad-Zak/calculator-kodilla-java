@@ -15,6 +15,6 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
     testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
 }
-test {
-    useJUnitPlatform()
-}
+//test {
+  //  useJUnitPlatform()
+//}
