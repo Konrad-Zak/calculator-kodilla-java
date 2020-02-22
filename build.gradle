@@ -22,6 +22,8 @@ dependencies {
     }
     //Test dependencies
     testCompile('junit:junit:4.13')
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+
 }
 
 test {
