@@ -1,23 +1,17 @@
 package com.kodilla.stream;
 
-
-import com.kodilla.stream.lambda.ExpressionExecutor;
-import com.kodilla.stream.reference.FunctionalCalculator;
+import com.kodilla.stream.beautifier.PoemBeautifier;
 
 public class StreamMain {
     public static void main(String[] args) {
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();
 
-        System.out.println("Calculating expressions with lambdas");
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a / b);
+        String addText = "SOS";
+        PoemBeautifier poemBeautifier = new PoemBeautifier();
 
-        System.out.println("Calculating expressions with method references");
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::multiplyAByB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::addAToB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::subBFromA);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::divideAByB);
+        poemBeautifier.beautify("adam",text -> text.replace("a","p"));
+        poemBeautifier.beautify("STAR WARS",text -> text.substring(2,6));
+        poemBeautifier.beautify("asdfghj",String::toUpperCase);
+        poemBeautifier.beautify("NOWA_HUTA",String::toLowerCase);
+        poemBeautifier.beautify("CALL TO ",text -> text.concat(addText));
     }
 }
