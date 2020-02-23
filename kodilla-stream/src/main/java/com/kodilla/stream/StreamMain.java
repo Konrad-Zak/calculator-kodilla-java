@@ -8,7 +8,7 @@ public class StreamMain {
 
         String addText = "SOS";
         PoemBeautifier poemBeautifier = new PoemBeautifier();
-
+        
         poemBeautifier.beautify("adam",text -> text.replace("a","p"));
         poemBeautifier.beautify("STAR WARS",text -> text.substring(2,6));
         poemBeautifier.beautify("asdfghj",String::toUpperCase);
