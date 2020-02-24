@@ -21,10 +21,6 @@ public final class ForumUser {
         return userId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public char getUserSex() {
         return userSex;
     }

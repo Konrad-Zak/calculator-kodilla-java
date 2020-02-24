@@ -10,12 +10,13 @@ import java.util.stream.Collectors;
 public class StreamMain {
     public static void main(String[] args) {
 
-        LocalDate nowDate = LocalDate.now();
+        LocalDate nowDate;
+        nowDate = LocalDate.now();
         Forum forum = new Forum();
 
         Map<Integer, ForumUser> theResultMapOfForumUser = forum.getUserList().stream()
                 .filter(forumUser -> forumUser.getUserSex() == 'M')
-                .filter(forumUser ->forumUser.getBirthDate().isAfter(nowDate.minusYears(20)) )
+                .filter(forumUser ->forumUser.getBirthDate().isBefore(nowDate.minusYears(20).plusDays(1)) )
                 .filter(forumUser -> forumUser.getQuantityOfPost()>0)
                 .collect(Collectors.toMap(ForumUser::getUserId,forumUser -> forumUser));
 
@@ -23,7 +24,5 @@ public class StreamMain {
         theResultMapOfForumUser.entrySet().stream()
                 .map(entry -> entry.getKey() + ": " + entry.getValue())
                 .forEach(System.out::println);
-
     }
-
 }
