@@ -11,13 +11,13 @@ public class WorldTestSuite {
     @Test
     public void testGetPeopleQuantity(){
         //Given
-        BigDecimal expected = new BigDecimal("50");
+        BigDecimal expected = new BigDecimal("84000000.0");
 
         List<Continent>continentList = new ArrayList<>();
+        continentList.add(new Continent(countryListGenerator(2)));
+        continentList.add(new Continent(countryListGenerator(3)));
+        continentList.add(new Continent(countryListGenerator(4)));
         continentList.add(new Continent(countryListGenerator(5)));
-        continentList.add(new Continent(countryListGenerator(10)));
-        continentList.add(new Continent(countryListGenerator(20)));
-        continentList.add(new Continent(countryListGenerator(15)));
 
         World world = new World(continentList);
         //When
@@ -28,9 +28,8 @@ public class WorldTestSuite {
 
     private List<Country> countryListGenerator(int size){
         List<Country> countries = new ArrayList<>();
-        BigDecimal bigDecimal = BigDecimal.ZERO;
         for (int i = 0; i <size ; i++) {
-            countries.add(new Country(bigDecimal.add(BigDecimal.ONE)));
+            countries.add(new Country(new BigDecimal(4_000_000L).multiply(BigDecimal.valueOf(1.5))));
         }
         return countries;
     }
