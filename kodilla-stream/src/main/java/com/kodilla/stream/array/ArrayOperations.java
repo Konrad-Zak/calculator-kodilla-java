@@ -1,6 +1,5 @@
 package com.kodilla.stream.array;
 
-import java.util.OptionalDouble;
 import java.util.stream.IntStream;
 
 public interface ArrayOperations {
@@ -11,14 +10,9 @@ public interface ArrayOperations {
                        .map(n->n=numbers[n])
                        .forEach(System.out::println);
 
-               OptionalDouble result =  IntStream.range(0, numbers.length)
+               return   IntStream.range(0, numbers.length)
                        .map(n->n=numbers[n])
-                       .average();
-
-               if (result.isPresent()){
-                    return result.getAsDouble();
-               } else {
-                    return 0.0;
-               }
+                       .average()
+                       .orElse(0.0);
      }
 }
