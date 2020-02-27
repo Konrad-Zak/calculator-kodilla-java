@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalDouble;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
@@ -152,16 +151,13 @@ public class BoardTestSuite {
                 .map(t->t=LocalDate.now().getDayOfYear()-t)
                 .collect(toList());
 
-        OptionalDouble average = IntStream.range(0,integerList.size())
+        double average = IntStream.range(0,integerList.size())
                 .map(i->i=integerList.get(i))
-                .average();
+                .average()
+                .orElse(0.0);
 
-        double result = 0.0;
-        if (average.isPresent()){
-            result = average.getAsDouble();
-        }
 
         //Then
-        Assert.assertEquals(expected,result,0.0);
+        Assert.assertEquals(expected,average,0.0);
     }
 }
