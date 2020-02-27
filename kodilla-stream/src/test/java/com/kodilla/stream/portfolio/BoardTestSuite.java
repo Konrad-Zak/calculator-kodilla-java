@@ -2,9 +2,13 @@ package com.kodilla.stream.portfolio;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -125,11 +129,39 @@ public class BoardTestSuite {
         long longTasks = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> t.getCreated())
+                .map(Task::getCreated)
                 .filter(d -> d.compareTo(LocalDate.now().minusDays(10)) <= 0)
                 .count();
 
         //Then
         Assert.assertEquals(2, longTasks);
+    }
+    @Test
+    public void testAddTaskListAverageWorkingOnTask(){
+        //Given
+        Board project = prepareTestData();
+        double expected = 10.0;
+
+        //When
+        List<TaskList> inProgressTasks = new ArrayList<>();
+        inProgressTasks.add(new TaskList("In progress"));
+        List<Integer> integerList = project.getTaskLists().stream()
+                .filter(inProgressTasks::contains)
+                .flatMap(t1->t1.getTasks().stream())
+                .map(t->t.getCreated().getDayOfYear())
+                .map(t->t=LocalDate.now().getDayOfYear()-t)
+                .collect(toList());
+
+        OptionalDouble average = IntStream.range(0,integerList.size())
+                .map(i->i=integerList.get(i))
+                .average();
+
+        double result = 0.0;
+        if (average.isPresent()){
+            result = average.getAsDouble();
+        }
+
+        //Then
+        Assert.assertEquals(expected,result,0.0);
     }
 }
