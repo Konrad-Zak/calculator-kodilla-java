@@ -20,7 +20,7 @@ public final  class GameData {
     }
 
     public void showResult(){
-        System.out.println(userName + " score: " + playerScore + "\n Ai score: "+ aiScore);
+        System.out.println(userName + " score: " + playerScore + "\nAi score: "+ aiScore);
     }
 
     public void resetScore(){
@@ -34,7 +34,7 @@ public final  class GameData {
         aiScore++;
     }
 
-    public int getPlayerScore() {
+    public int getUserScore() {
         return playerScore;
     }
 

@@ -1,13 +1,17 @@
 package com.kodilla.rps;
 
-import com.kodilla.rps.movement.AvailableMovements;
-import com.kodilla.rps.movement.Movement;
+import com.kodilla.rps.movement.GameControlKeys;
+import com.kodilla.rps.movement.MovementKey;
 
+import java.util.InputMismatchException;
 
 public class Game {
 
+    private int roundNumber;
+    private boolean end;
     private GameData gameData;
-    private AvailableMovements availableMovements = new AvailableMovements();
+
+    private GameControlKeys gameControlKeys = new GameControlKeys();
     private DataReader dataReader = new DataReader();
 
     public void runGame(){
@@ -15,64 +19,123 @@ public class Game {
         showKeyControl();
         playGame();
         gameResult();
-
+        endGame();
     }
+
     private void setSettings(){
-        gameData = dataReader.readAndCreateGameData();
-    }
-    private void showKeyControl(){
-        availableMovements.showMovementsMap();
-    }
-    private void playGame(){
-
-        boolean end = false;
-        int round = 1;
-        String result = null;
-
-        gameData.resetScore();
-        while(!end) {
-
-            Character userMove = dataReader.getKey();
-            Character aiMove = gameData.aiGenerateMove();
-
-            Movement userChoice = availableMovements.getMovementFormKey(userMove);
-            Movement aiChoice = availableMovements.getMovementFormKey(aiMove);
-
-            boolean winPlayer = userChoice.getVictory().stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
-            boolean lostPlayer = userChoice.getLost().stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
-
-            //add point
-            if(winPlayer){
-                gameData.addPointToPlayer();
-                result = "Win";
-            }
-            if (lostPlayer){
-                gameData.addPointToAi();
-                result = "Lost";
-            }
-            if (!winPlayer && !lostPlayer){
-                result = "Draw";
-            }
-            if(gameData.getPlayerScore() == gameData.getNumberRound() ||
-                    gameData.getAiScore() == gameData.getNumberRound()) {
-                end = true;
-            }
-
-            System.out.println("round: "+ round + "\n " + gameData.getUserName() + " " + userChoice +
-                    "\n Ai " + aiChoice +  "\n You: " + result + "\n");
-            round++;
+        try {
+            gameData = dataReader.readAndCreateGameData();
+        } catch (InputMismatchException e){
+            dataReader.getNextLine();
+            System.err.println("Number is not integer ");
+            setSettings();
         }
     }
+    private void showKeyControl(){
+        gameControlKeys.showMovementsMap();
+    }
+    private void playGame(){
+        end = false;
+        roundNumber = 0;
+        gameData.resetScore();
+
+        while(!end) {
+            //get key from user
+            Character userMove = dataReader.getKey();
+            boolean keyMovement = gameControlKeys.verifyMovementKey(userMove);
+            boolean keyFunction = gameControlKeys.verifyFunctionKey(userMove);
+
+            //verify user key
+            if(keyMovement){
+                end = fight(userMove);
+            } else if(keyFunction) {
+                end = stopGame();
+            } else {
+                System.out.println("You put wrong key...try again");
+            }
+
+        }
+    }
+    private boolean fight(Character userMove){
+
+        String result = null;
+        Character aiMove = gameData.aiGenerateMove();
+        MovementKey userChoice = gameControlKeys.getMovementFormKey(userMove);
+        MovementKey aiChoice = gameControlKeys.getMovementFormKey(aiMove);
+
+        //Calculated and verified
+        boolean winPlayer = userChoice.winWithList().stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
+        boolean lostPlayer = userChoice.lossWithList().stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
+
+        if(winPlayer){
+            gameData.addPointToPlayer();
+            result = "Win";
+        }
+        if (lostPlayer){
+            gameData.addPointToAi();
+            result = "Lost";
+        }
+        if (!winPlayer && !lostPlayer){
+            result = "Draw";
+        }
+        //Add point
+        if(gameData.getUserScore() == gameData.getNumberRound() ||
+                gameData.getAiScore() == gameData.getNumberRound()) {
+            end = true;
+        }
+        //Show
+        System.out.println("round: "+ roundNumber + "\n " + "You: " + userChoice +
+                "\n Ai " + aiChoice +  "\n You: " + result + "\n");
+        gameData.showResult();
+        roundNumber++;
+        return end;
+    }
+
     private void gameResult(){
         String winner;
-        if(gameData.getPlayerScore()>gameData.getAiScore()){
+        int userScore = gameData.getUserScore();
+        int aiScore = gameData.getAiScore();
+
+        if(userScore>aiScore){
             winner = gameData.getUserName();
+        } else if (userScore == aiScore) {
+            winner = "No one";
         } else {
             winner = "Ai";
         }
-        System.out.println("Winner: " + winner);
+
+        System.out.println("\n>>>END GAME<<<"+ "\nWinner: " + winner);
         gameData.showResult();
     }
 
+    private boolean stopGame(){
+        System.out.println("Do you wanna end game? \n" + "x - Yes" + "\tn - No");
+        Character choose = dataReader.getKey();
+        boolean verify = gameControlKeys.verifyFunctionKey(choose);
+        if (verify){
+            if(choose.equals('x')) {
+                end = true;
+            }
+        } else {
+            System.out.println("You put wrong key!!!!");
+        }
+        return end;
+    }
 
+    private void endGame(){
+        System.out.println("Exit Game - key x\t"+"New Game - key n");
+        Character choose = dataReader.getKey();
+        boolean verify = gameControlKeys.verifyFunctionKey(choose);
+        if(verify){
+            if (choose.equals('n')){
+                playGame();
+            } else {
+            System.out.println("Bye thank You for game...");
+            dataReader.close();
+            }
+        } else {
+            System.out.println("You put wrong key!!!! try again...");
+            endGame();
+        }
+    }
 }
