@@ -3,10 +3,6 @@ package com.kodilla.rps;
 import com.kodilla.rps.movement.AvailableMovements;
 import com.kodilla.rps.movement.Movement;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 
 public class Game {
 
@@ -18,6 +14,7 @@ public class Game {
         setSettings();
         showKeyControl();
         playGame();
+        gameResult();
 
     }
     private void setSettings(){
@@ -27,26 +24,54 @@ public class Game {
         availableMovements.showMovementsMap();
     }
     private void playGame(){
+
         boolean end = false;
+        int round = 1;
+        String result = null;
+
+        gameData.resetScore();
         while(!end) {
+
             Character userMove = dataReader.getKey();
             Character aiMove = gameData.aiGenerateMove();
-            System.out.println(aiMove);
+
             Movement userChoice = availableMovements.getMovementFormKey(userMove);
             Movement aiChoice = availableMovements.getMovementFormKey(aiMove);
 
-            System.out.println(userChoice + " \n "+ aiChoice);
-            //Win player
-            List<String> victoryList = userChoice.getVictory();
-            boolean draw = false;
-            boolean winPlayer = victoryList.stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
-           // boolean lostPlayer = userChoice.getLost().stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
-            //if (!winPlayer && !lostPlayer){
-                draw = true;
-            //}
-            System.out.println("Result: "+ winPlayer );
-            end = true;
+            boolean winPlayer = userChoice.getVictory().stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
+            boolean lostPlayer = userChoice.getLost().stream().anyMatch(t->t.matches(aiChoice.getMoveName()));
+
+            //add point
+            if(winPlayer){
+                gameData.addPointToPlayer();
+                result = "Win";
+            }
+            if (lostPlayer){
+                gameData.addPointToAi();
+                result = "Lost";
+            }
+            if (!winPlayer && !lostPlayer){
+                result = "Draw";
+            }
+            if(gameData.getPlayerScore() == gameData.getNumberRound() ||
+                    gameData.getAiScore() == gameData.getNumberRound()) {
+                end = true;
+            }
+
+            System.out.println("round: "+ round + "\n " + gameData.getUserName() + " " + userChoice +
+                    "\n Ai " + aiChoice +  "\n You: " + result + "\n");
+            round++;
         }
+    }
+    private void gameResult(){
+        String winner;
+        if(gameData.getPlayerScore()>gameData.getAiScore()){
+            winner = gameData.getUserName();
+        } else {
+            winner = "Ai";
+        }
+        System.out.println("Winner: " + winner);
+        gameData.showResult();
     }
 
 

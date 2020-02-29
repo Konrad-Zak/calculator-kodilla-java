@@ -33,13 +33,7 @@ public class Movement {
 
     @Override
     public String toString() {
-        return "Movement{" +
-                "moveName='" + moveName + '\'' +
-                ", beatOne='" + beatOne + '\'' +
-                ", beatTwo='" + beatTwo + '\'' +
-                ", loseOne='" + loseOne + '\'' +
-                ", loseTwo='" + loseTwo + '\'' +
-                '}';
+        return "play " + moveName;
     }
 
     @Override
