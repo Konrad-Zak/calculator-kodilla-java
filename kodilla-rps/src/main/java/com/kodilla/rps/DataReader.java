@@ -1,6 +1,7 @@
 package com.kodilla.rps;
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DataReader {
@@ -10,7 +11,7 @@ public class DataReader {
         sc.close();
     }
 
-    public GameData readAndCreateGameData() {
+    public GameData readAndCreateGameData(){
             System.out.println("\nGive your name... please....");
             String userName = sc.nextLine();
             System.out.println("Give number of round in game");
@@ -18,10 +19,12 @@ public class DataReader {
             sc.nextLine();
             return new GameData(userName, numberOfRound);
     }
+
     public Character getKey(){
         System.out.println("\nYour choose: ");
         return sc.next().charAt(0);
     }
+
     public void getNextLine(){
         sc.nextLine();
     }

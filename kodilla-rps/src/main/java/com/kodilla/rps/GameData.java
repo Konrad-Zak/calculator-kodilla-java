@@ -19,8 +19,8 @@ public final  class GameData {
         return numberGeneration.charAt(0);
     }
 
-    public void showResult(){
-        System.out.println(userName + " score: " + playerScore + "\nAi score: "+ aiScore);
+    public void showScore(){
+        System.out.println(userName + " score: " + playerScore + "\nAi score: "+ aiScore + "\n");
     }
 
     public void resetScore(){
