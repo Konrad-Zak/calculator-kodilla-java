@@ -1,5 +1,6 @@
-package com.kodilla.rps;
+package com.kodilla.rps.service;
 
+import com.kodilla.rps.io.DataReader;
 import com.kodilla.rps.movement.GameControlKeys;
 
 import java.util.InputMismatchException;
@@ -28,7 +29,7 @@ public class Game {
             gameData = dataReader.readAndCreateGameData();
         } catch (InputMismatchException e){
             dataReader.getNextLine();
-            System.err.println("Number is not integer...pleas press any key ");
+            System.err.println("Number is not integer...pleas press any key to continue...");
             dataReader.getNextLine();
             setSettings();
         }
@@ -56,7 +57,7 @@ public class Game {
             } else if(keyFunction) {
                 end = stopGame();
             } else {
-                System.out.println("You put wrong key...try again");
+                System.err.println("You put wrong key...try again");
             }
         }
     }
@@ -87,7 +88,8 @@ public class Game {
                 end = true;
             }
         } else {
-            System.out.println("You put wrong key!!!!");
+            System.err.println("\nYou put wrong key!!!!\n");
+            stopGame();
         }
         return end;
     }
@@ -101,11 +103,11 @@ public class Game {
                 dataReader.getNextLine();
                 runGame();
             } else {
-            System.out.println("Bye thank You for game...");
+            System.out.println("\nBye thank You for game...");
             dataReader.close();
             }
         } else {
-            System.out.println("You put wrong key!!!! try again...");
+            System.err.println("\nYou put wrong key!!!! try again...\n");
             endGame();
         }
     }

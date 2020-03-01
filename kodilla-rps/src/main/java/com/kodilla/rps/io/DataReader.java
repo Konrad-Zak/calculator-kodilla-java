@@ -1,7 +1,8 @@
-package com.kodilla.rps;
+package com.kodilla.rps.io;
 
 
-import java.util.InputMismatchException;
+import com.kodilla.rps.service.GameData;
+
 import java.util.Scanner;
 
 public class DataReader {
