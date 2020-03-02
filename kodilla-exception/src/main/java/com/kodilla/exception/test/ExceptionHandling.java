@@ -16,6 +16,8 @@ class Calculate{
             System.out.println(result);
         }catch (Exception e){
             System.err.println("x >= 2 or x < 1 or y == 1.5");
+        }finally {
+            System.out.println("I only check You");
         }
     }
 }
