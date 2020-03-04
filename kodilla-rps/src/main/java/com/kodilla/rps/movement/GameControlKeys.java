@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameControlKeys {
-    Map<Character,MovementKey> gameKeyMap = new HashMap<>();
-    Map<Character,FunctionKey> functionKeyMap = new HashMap<>();
+    private Map<Character,MovementKey> gameKeyMap = new HashMap<>();
+    private Map<Character,FunctionKey> functionKeyMap = new HashMap<>();
 
     public GameControlKeys() {
         gameKeyMap.put('1',new MovementKey("rock","lizard","scissor",

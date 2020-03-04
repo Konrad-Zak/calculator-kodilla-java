@@ -1,8 +1,8 @@
 package com.kodilla.rps.io;
 
 
-import com.kodilla.rps.service.GameData;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DataReader {
@@ -12,13 +12,15 @@ public class DataReader {
         sc.close();
     }
 
-    public GameData readAndCreateGameData(){
+    public String readNamePlayer(){
             System.out.println("\nGive your name... please....");
-            String userName = sc.nextLine();
-            System.out.println("Give number of round in game");
-            int numberOfRound = sc.nextInt();
-            sc.nextLine();
-            return new GameData(userName, numberOfRound);
+            return sc.nextLine();
+    }
+    public int readNumberOfRound() throws InputMismatchException {
+        System.out.println("\n" + "Give me the number of rounds won after which the game will be end");
+        int numberOfRound = sc.nextInt();
+        sc.nextLine();
+        return  numberOfRound;
     }
 
     public Character getKey(){
