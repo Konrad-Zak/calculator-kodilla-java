@@ -21,10 +21,8 @@ public class FlightAnalyst {
         String arrivalAirport = flight.getArrivalAirport();
 
         if (flightMap.containsKey(arrivalAirport)){
-             flightMap.entrySet().stream()
-                    .filter(t->t.getKey().equals(arrivalAirport))
-                    .map(entry -> entry.getKey() + " - includes arrival: " + entry.getValue())
-                    .forEach(System.out::println);
+            boolean result = flightMap.get(arrivalAirport);
+            System.out.println(arrivalAirport + " - includes arrival: " + result);
         } else {
            throw new  RouteNotFoundException("Airport is not exist!!!");
         }
