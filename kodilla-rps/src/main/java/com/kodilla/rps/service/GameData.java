@@ -7,14 +7,14 @@ public final  class GameData {
     private final int numberRound;
     private int playerScore;
     private int aiScore;
+    private static final Random RANDOM = new Random();
 
     public GameData(String userName, int numberRound) {
         this.userName = userName;
         this.numberRound = numberRound;
     }
     public Character aiGenerateMove(){
-        Random generator = new Random();
-        int generate = generator.nextInt(5)+1;
+        int generate = RANDOM.nextInt(5)+1;
         String numberGeneration = Integer.toString(generate);
         return numberGeneration.charAt(0);
     }

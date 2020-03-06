@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 
 public class Game {
 
-    private boolean end;
+    private int numberOfRound = 0;
     private GameData gameData;
 
     private GameControlKeys gameControlKeys = new GameControlKeys();
@@ -18,26 +18,44 @@ public class Game {
         setSettings();
         runGame();
     }
+
     public void runGame(){
         playGame();
-        gameResult();
-        endGame();
+        getGameResults();
+        getEndGame();
     }
 
-    private void setSettings() throws InputMismatchException{
+    private void setSettings(){
+        String userName = dataReader.readNamePlayer();
+        numberOfRound = getNumberOfRound();
+        boolean v = false;
+        while (!v)
+            if(numberOfRound <1 ){
+                System.out.println("Number is less than 1... Please correct...");
+                numberOfRound = getNumberOfRound();
+            } else {
+                v = true;
+                gameData = new GameData(userName,numberOfRound);
+            }
+    }
+
+    private int getNumberOfRound(){
         try {
-            gameData = dataReader.readAndCreateGameData();
+            numberOfRound = dataReader.readNumberOfRound();
         } catch (InputMismatchException e){
             dataReader.getNextLine();
-            System.err.println("Number is not integer...pleas press any key to continue...");
-            dataReader.getNextLine();
-            setSettings();
+            System.out.println("You put not... integer... ");
+            readNotInteger();
         }
+        return numberOfRound;
     }
 
+    private void readNotInteger(){
+        getNumberOfRound();
+    }
 
     private void playGame(){
-        end = false;
+        boolean end = false;
         int roundNumber = 1;
         gameData.resetScore();
 
@@ -55,15 +73,14 @@ public class Game {
                 end = calculate.fight(userMove,gameData,gameControlKeys, roundNumber);
                 roundNumber++;
             } else if(keyFunction) {
-                end = stopGame();
+                end = getStopGame();
             } else {
                 System.err.println("You put wrong key...try again");
             }
         }
     }
 
-
-    private void gameResult(){
+    private void getGameResults(){
         String winner;
         int userScore = gameData.getUserScore();
         int aiScore = gameData.getAiScore();
@@ -79,36 +96,37 @@ public class Game {
         gameData.showScore();
     }
 
-    private boolean stopGame(){
-        System.out.println("Do you wanna end this game? \n" + "x - Yes" + "\tn - No");
-        Character character = dataReader.getKey();
-        boolean verify = gameControlKeys.verifyFunctionKey(character);
-        if (verify){
-            if(character.equals('x')) {
+    private boolean getStopGame(){
+        boolean end = false;
+        boolean verify;
+        do{
+            System.out.println("Do you wanna end this game? \n" + "x - Yes" + "\tn - No");
+            Character character = dataReader.getKey();
+            verify = gameControlKeys.verifyFunctionKey(character);
+            if(!verify){
+                System.out.println("You put wrong key... try again");
+            } else if(character.equals('x')) {
                 end = true;
             }
-        } else {
-            System.err.println("\nYou put wrong key!!!!\n");
-            stopGame();
-        }
+        }while (!verify);
         return end;
     }
 
-    private void endGame(){
-        System.out.println("\nWhat You wanna do?"+"\nExit Game - key x\t"+"New Game - key n");
-        Character choose = dataReader.getKey();
-        boolean verify = gameControlKeys.verifyFunctionKey(choose);
-        if(verify){
-            if (choose.equals('n')){
+    private void getEndGame(){
+        boolean verify;
+        do{
+            System.out.println("\nWhat You wanna do?"+"\nExit Game - key x\t"+"New Game - key n");
+            Character choose = dataReader.getKey();
+            verify = gameControlKeys.verifyFunctionKey(choose);
+            if(!verify){
+                System.out.println("\nYou put wrong key!!!! try again...\n");
+            } else if(choose.equals('n')){
                 dataReader.getNextLine();
                 runGame();
             } else {
-            System.out.println("\nBye thank You for game...");
-            dataReader.close();
+                System.out.println("\nBye thank You for game...");
+                dataReader.close();
             }
-        } else {
-            System.err.println("\nYou put wrong key!!!! try again...\n");
-            endGame();
-        }
+        }while (!verify);
     }
 }

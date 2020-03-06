@@ -1,7 +1,7 @@
 package com.kodilla.rps.movement;
 
 public class FunctionKey {
-    String action;
+    private final String action;
 
     public FunctionKey(String action) {
         this.action = action;

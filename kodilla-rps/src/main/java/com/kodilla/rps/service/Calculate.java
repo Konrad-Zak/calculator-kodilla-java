@@ -4,7 +4,7 @@ import com.kodilla.rps.movement.GameControlKeys;
 import com.kodilla.rps.movement.MovementKey;
 
 public class Calculate {
-    boolean end = false;
+    private boolean end = false;
 
     public boolean fight(Character userMove, GameData gameData, GameControlKeys gameControlKeys, int roundNumber){
 
@@ -31,7 +31,7 @@ public class Calculate {
         }
         if (lostPlayer){
             gameData.addPointToAi();
-            result = "Lost";
+            result = "Lose";
         }
         if (!winPlayer && !lostPlayer){
             result = "Draw";
@@ -43,6 +43,8 @@ public class Calculate {
         if(gameData.getUserScore() == gameData.getNumberRound() ||
                 gameData.getAiScore() == gameData.getNumberRound()) {
             end = true;
+        } else {
+            end = false;
         }
     }
     private void showRoundResult(GameData gameData,MovementKey userChoice,
@@ -50,6 +52,5 @@ public class Calculate {
         System.out.println("round: "+ roundNumber + "\n " + "You: " + userChoice +
                 "\n Ai " + aiChoice +  "\n You: " + result + "\n");
         gameData.showScore();
-
     }
 }

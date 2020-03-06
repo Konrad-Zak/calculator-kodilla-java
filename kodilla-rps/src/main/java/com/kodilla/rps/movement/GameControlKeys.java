@@ -4,20 +4,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameControlKeys {
-    Map<Character,MovementKey> gameKeyMap = new HashMap<>();
-    Map<Character,FunctionKey> functionKeyMap = new HashMap<>();
+    private Map<Character,MovementKey> gameKeyMap = new HashMap<>();
+    private Map<Character,FunctionKey> functionKeyMap = new HashMap<>();
 
     public GameControlKeys() {
-        gameKeyMap.put('1',new MovementKey("rock","lizard","scissor",
-                "paper","spock"));
-        gameKeyMap.put('2',new MovementKey("paper","rock","spock",
-                "scissor","lizard" ));
-        gameKeyMap.put('3',new MovementKey("scissor","paper","lizard",
-                "rock","spock"));
-        gameKeyMap.put('4',new MovementKey("spock","scissor","rock",
-                "lizard","paper"));
-        gameKeyMap.put('5',new MovementKey("lizard","paper","spock",
-                "rock","scissor"));
+        gameKeyMap.put('1',new MovementKey.Builder()
+                .moveName("rock")
+                .beatOne("lizard")
+                .beatTwo("scissor")
+                .loseOne("paper")
+                .loseTwo("spock")
+                .build());
+
+        gameKeyMap.put('2',new MovementKey.Builder()
+                .moveName("paper")
+                .beatOne("rock")
+                .beatTwo("spock")
+                .loseOne("scissor")
+                .loseTwo("lizard")
+                .build());
+
+        gameKeyMap.put('3',new MovementKey.Builder()
+                .moveName("scissor")
+                .beatOne("paper")
+                .beatTwo("lizard")
+                .loseOne("rock")
+                .loseTwo("spock")
+                .build());
+
+        gameKeyMap.put('4',new MovementKey.Builder()
+                .moveName("spock")
+                .beatOne("scissor")
+                .beatTwo("rock")
+                .loseOne("lizard")
+                .loseTwo("paper")
+                .build());
+
+
+        gameKeyMap.put('5',new MovementKey.Builder()
+                .moveName("lizard")
+                .beatOne("paper")
+                .beatTwo("spock")
+                .loseOne("rock")
+                .loseTwo("scissor")
+                .build());
+
         functionKeyMap.put('x',new FunctionKey("Finish the game"));
         functionKeyMap.put('n',new FunctionKey("Restarting the game"));
     }
