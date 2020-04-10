@@ -18,7 +18,7 @@ public class Buy implements BuyingService {
     @Override
     public Boolean buy(User user, Product product, Integer numberOfItems) {
         Integer numberItemsInMagazine = magazineProduct.get(product);
-        boolean result = numberItemsInMagazine - numberOfItems > 0;
+        boolean result = numberItemsInMagazine - numberOfItems >= 0;
 
         if(result){
             System.out.println("Assent order buy");
