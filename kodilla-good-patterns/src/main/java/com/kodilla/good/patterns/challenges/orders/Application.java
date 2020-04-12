@@ -4,7 +4,7 @@ import com.kodilla.good.patterns.challenges.orders.model.BuyRequest;
 import com.kodilla.good.patterns.challenges.orders.model.BuyRequestCreator;
 import com.kodilla.good.patterns.challenges.orders.model.OrderDto;
 import com.kodilla.good.patterns.challenges.orders.service.ProductOrderService;
-import com.kodilla.good.patterns.challenges.orders.service.buying.Buy;
+import com.kodilla.good.patterns.challenges.orders.service.buying.BuyProcessor;
 import com.kodilla.good.patterns.challenges.orders.service.information.Mail;
 import com.kodilla.good.patterns.challenges.orders.service.print.Print;
 import com.kodilla.good.patterns.challenges.orders.service.repository.OrderMagazine;
@@ -23,7 +23,7 @@ public class Application {
         BuyRequest buyRequest4 = buyRequestCreator.createBuyRequest("Mas","Los",
                 "Game",18);
 
-        ProductOrderService productOrderService = new ProductOrderService(new Mail(),new Buy(),new OrderMagazine());
+        ProductOrderService productOrderService = new ProductOrderService(new Mail(),new BuyProcessor(),new OrderMagazine());
         OrderDto orderDto1 = productOrderService.process(buyRequest1);
         OrderDto orderDto2 = productOrderService.process(buyRequest2);
         OrderDto orderDto3 = productOrderService.process(buyRequest3);

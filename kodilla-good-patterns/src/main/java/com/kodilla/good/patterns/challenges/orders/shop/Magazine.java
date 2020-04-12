@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Magazine {
 
-    Map<Product, Integer> magazineProduct = new HashMap<>();
+    private Map<Product, Integer> magazineProduct = new HashMap<>();
 
     public Magazine() {
         magazineProduct.put(new Product("Book"),24);

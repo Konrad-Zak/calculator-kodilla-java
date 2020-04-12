@@ -1,8 +1,6 @@
 package com.kodilla.good.patterns.challenges.orders.service.repository;
 
-import com.kodilla.good.patterns.challenges.orders.model.Order;
-import com.kodilla.good.patterns.challenges.orders.model.Product;
-import com.kodilla.good.patterns.challenges.orders.model.User;
+import com.kodilla.good.patterns.challenges.orders.model.BuyRequest;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -10,19 +8,18 @@ import java.util.Map;
 
 public class OrderMagazine implements OrderRepository {
 
-    Map<Integer,Order> orderMap = new HashMap<>();
-    Map<Integer,Order> errorOrderMap = new HashMap<>();
+    private Map<Integer,BuyRequest> orderMap = new HashMap<>();
+    private Map<Integer,BuyRequest> errorOrderMap = new HashMap<>();
 
     @Override
-    public void createOrder(Integer orderNumber, LocalDate localDate, User user,
-                            Product product, Integer numberOfItems, boolean isOrderOk) {
+    public void createOrder(Integer orderNumber, LocalDate localDate, BuyRequest buyRequest, boolean isOrderOk) {
 
         if(isOrderOk){
-            orderMap.put(orderNumber,new Order(localDate,user,product,numberOfItems));
+            orderMap.put(orderNumber,buyRequest);
         } else {
-            errorOrderMap.put(orderNumber,new Order(localDate,user,product,numberOfItems));
+            errorOrderMap.put(orderNumber,buyRequest);
         }
-        System.out.println("Save in database\n");
+        System.out.println(localDate + " Save in database");
     }
 
 }

@@ -5,7 +5,7 @@ public class OrderDto {
     private User user;
     private boolean isCorrectBuyOrder;
 
-    public OrderDto(final Integer numberOrder, final User user, final boolean isCorrectBuyOrder) {
+    public OrderDto(Integer numberOrder, User user, boolean isCorrectBuyOrder) {
         this.numberOrder = numberOrder;
         this.user = user;
         this.isCorrectBuyOrder = isCorrectBuyOrder;

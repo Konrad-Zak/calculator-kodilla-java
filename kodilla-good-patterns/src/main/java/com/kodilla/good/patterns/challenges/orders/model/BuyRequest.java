@@ -6,7 +6,7 @@ public class BuyRequest {
     private Product product;
     private Integer numberOfItems;
 
-    public BuyRequest(final User user, final Product product, final Integer numberOfItems) {
+    public BuyRequest(User user, Product product, Integer numberOfItems) {
         this.user = user;
         this.product = product;
         this.numberOfItems = numberOfItems;
@@ -22,5 +22,12 @@ public class BuyRequest {
 
     public Integer getNumberOfItems() {
         return numberOfItems;
+    }
+
+    @Override
+    public String toString() {
+        return " user: " + user +
+                " product: " + product +
+                " numberOfItems: " + numberOfItems;
     }
 }

@@ -15,34 +15,27 @@ public class ProductOrderService {
     private OrderRepository orderRepository;
     private int count = 0;
 
-    public ProductOrderService(final InformationService informationService, final BuyingService buyingService,
-                               final OrderRepository orderRepository) {
+    public ProductOrderService ( InformationService informationService,  BuyingService buyingService,
+                                 OrderRepository orderRepository) {
         this.informationService = informationService;
         this.buyingService = buyingService;
         this.orderRepository = orderRepository;
     }
 
-    public OrderDto process(final BuyRequest buyRequest) {
+    public OrderDto process(BuyRequest buyRequest) {
         LocalDate localDate = LocalDate.now();
-        count ++;
         Integer numberOrder = setNumberOrder();
-        boolean isCorrectBuyOrder = buyingService.buy(buyRequest.getUser(),buyRequest.getProduct()
-                ,buyRequest.getNumberOfItems());
+        boolean isCorrectBuyOrder = buyingService.buy(buyRequest);
+
+        orderRepository.createOrder(numberOrder,localDate,buyRequest, isCorrectBuyOrder);
 
         if (isCorrectBuyOrder){
-            informationService.inform(numberOrder,localDate,buyRequest.getUser(),
-                    buyRequest.getProduct(),buyRequest.getNumberOfItems());
-
-            orderRepository.createOrder(numberOrder,localDate,buyRequest.getUser(),
-                    buyRequest.getProduct(),buyRequest.getNumberOfItems(), true);
-
+            informationService.inform(numberOrder,localDate,buyRequest);
             return new OrderDto(numberOrder, buyRequest.getUser(), true);
         } else {
-            orderRepository.createOrder(numberOrder,localDate,buyRequest.getUser(),
-                    buyRequest.getProduct(),buyRequest.getNumberOfItems(), false);
-
             return new OrderDto(numberOrder, buyRequest.getUser(),false);
         }
+
     }
 
     private Integer setNumberOrder(){
