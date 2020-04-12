@@ -18,19 +18,19 @@ public class HealthyShop implements Shop {
 
     @Override
     public Boolean process(Product product) {
-        boolean result = false;
-        if(productMap.containsKey(product.getNameProduct())){
-            int difference = productMap.get(product.getNameProduct()) - product.getNumberOfItems();
-            if(difference>4 && difference % 2 == 0){
-                productMap.replace(product.getNameProduct(),difference);
-                result = true;
-            } else {
-                System.out.println("Too low stock or odd order");
-            }
-        } else {
-            System.out.println("Product not exist");
+        if (!productMap.containsKey(product.getNameProduct())) {
+            System.out.println("HealthyShop: Product doesn't exist");
+            return false;
         }
-        return result;
+
+        int difference = productMap.get(product.getNameProduct()) - product.getNumberOfItems();
+        if (difference <= 4 || difference % 2 == 1) {
+            System.out.println("\n HealthyShop: Too low stock or odd order");
+            return false;
+        }
+
+        productMap.replace(product.getNameProduct(), difference);
+        return true;
     }
 
     @Override
