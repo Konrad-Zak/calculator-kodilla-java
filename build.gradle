@@ -23,6 +23,13 @@ dependencies {
     //Test dependencies
     testCompile('junit:junit:4.13')
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    implementation 'org.testng:testng:6.9.6'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
 
 }
 
