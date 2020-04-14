@@ -1,35 +1,34 @@
 package com.kodilla.good.patterns.challenges.airline.service;
 
-import com.kodilla.good.patterns.challenges.airline.transport.TransportConnection;
+import com.kodilla.good.patterns.challenges.airline.model.Flight;
+import com.kodilla.good.patterns.challenges.airline.transport.FlightConnection;
 
 import java.util.Set;
 
 public class FlightService {
 
-    TransportConnection flightConnection;
+    private FlightConnection flightConnection;
 
-    public FlightService(TransportConnection flightConnection) {
+    public FlightService(FlightConnection flightConnection) {
         this.flightConnection = flightConnection;
     }
 
-    public void showFlightFrom(String cityStartFlight){
-        Set<Object> flights = flightConnection.findConnectionFrom(cityStartFlight);
-        System.out.println("\nFlight list from city: " + cityStartFlight + ":\n" + flights);
+
+    public void showFlightFrom(String startFlight){
+        Set<Flight> flights = flightConnection.findFlightFrom(startFlight);
+        System.out.println("\nFlight list from city: " + startFlight + ":\n" + flights);
     }
 
-    public void showFlightTo(String cityEndFlight){
-        Set<Object> flights = flightConnection.findConnectionTo(cityEndFlight);
-        System.out.println("\nFlight list to city: " + cityEndFlight + ":\n" + flights);
+    public void showFlightTo(String endFlight){
+        Set<Flight> flights = flightConnection.findFlightTo(endFlight);
+        System.out.println("\nFlight list to city: " + endFlight + ":\n" + flights);
     }
 
-    public void showFlightThrough(String cityStopFlight){
-        Set<Object> flights = flightConnection.findConnectionWithStop(cityStopFlight);
-        System.out.println("\nFlight list through city: " + cityStopFlight + ":\n" + flights);
+    public void showFlightConnection(Flight flight){
+        Set<Set<Flight>> flightsResult = flightConnection.findFlightConnection(flight);
+        System.out.println("\n" + flight + " available: \n");
+        flightsResult.forEach(System.out::println);
     }
 
-    public void checkConnection(Object object){
-        boolean isExist = flightConnection.findPreciseConnection(object);
-        System.out.println("\nSearched flight: " + object + " Available: " + isExist);
-    }
 
 }

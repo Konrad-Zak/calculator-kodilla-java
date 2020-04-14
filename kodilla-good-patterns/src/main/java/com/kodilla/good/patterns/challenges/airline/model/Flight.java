@@ -1,22 +1,23 @@
 package com.kodilla.good.patterns.challenges.airline.model;
 
-
 import java.util.Objects;
 
 public class Flight {
 
-    private String cityStartFlight;
-    private String cityStopFlight;
-    private String cityEndFlight;
+    private String starFlight;
+    private String endFlight;
 
-    public Flight(String cityStartFlight, String cityStopFlight, String cityEndFlight) {
-        this(cityStartFlight, cityEndFlight);
-        this.cityStopFlight = cityStopFlight;
+    public Flight(String starFlight, String endFlight) {
+        this.starFlight = starFlight;
+        this.endFlight = endFlight;
     }
 
-    public Flight(String cityStartFlight, String cityEndFlight) {
-        this.cityStartFlight = cityStartFlight;
-        this.cityEndFlight = cityEndFlight;
+    public String getStarFlight() {
+        return starFlight;
+    }
+
+    public String getEndFlight() {
+        return endFlight;
     }
 
     @Override
@@ -24,39 +25,18 @@ public class Flight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return Objects.equals(cityStartFlight, flight.cityStartFlight) &&
-                Objects.equals(cityStopFlight, flight.cityStopFlight) &&
-                Objects.equals(cityEndFlight, flight.cityEndFlight);
+        return Objects.equals(starFlight, flight.starFlight) &&
+                Objects.equals(endFlight, flight.endFlight);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cityStartFlight, cityStopFlight, cityEndFlight);
+        return Objects.hash(starFlight, endFlight);
     }
 
     @Override
     public String toString() {
-        nullEliminated();
-        return "\nFlight: " +
-                "From: " + cityStartFlight +"\t Stopover: " + cityStopFlight + "\t To: " + cityEndFlight;
+        return "Flight: " +
+                "From: " + starFlight + " To: " + endFlight +"\n";
     }
-
-    public String getCityStartFlight() {
-        return cityStartFlight;
-    }
-
-    public String getCityStopFlight() {
-        return cityStopFlight;
-    }
-
-    public String getCityEndFlight() {
-        return cityEndFlight;
-    }
-
-    private void nullEliminated(){
-        if(cityStopFlight == null){
-            cityStopFlight = "no exist";
-        }
-    }
-
 }

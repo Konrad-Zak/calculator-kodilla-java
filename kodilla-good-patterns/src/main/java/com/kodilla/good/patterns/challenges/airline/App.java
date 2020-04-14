@@ -1,20 +1,17 @@
 package com.kodilla.good.patterns.challenges.airline;
 
-import com.kodilla.good.patterns.challenges.airline.model.FlightRequest;
+import com.kodilla.good.patterns.challenges.airline.model.Flight;
 import com.kodilla.good.patterns.challenges.airline.service.FlightService;
-import com.kodilla.good.patterns.challenges.airline.transport.FlightConnection;
+import com.kodilla.good.patterns.challenges.airline.transport.FlightList;
 
 public class App {
     public static void main(String[] args) {
 
-        FlightRequest flightRequest = new FlightRequest();
-        FlightService flightService = new FlightService(new FlightConnection());
+        FlightService flightService = new FlightService(new FlightList());
 
+        flightService.showFlightFrom("Cracow");
+        flightService.showFlightTo("Poznan");
+        flightService.showFlightConnection(new Flight("Warsaw","Poznan"));
 
-        flightService.showFlightFrom(flightRequest.searchedCity("Cracow"));
-        flightService.showFlightTo(flightRequest.searchedCity("Poznan"));
-        flightService.showFlightThrough(flightRequest.searchedCity("Warsaw"));
-        flightService.checkConnection(flightRequest.searchedFlight("Poznan",
-                "Warsaw","Rzeszow"));
     }
 }
