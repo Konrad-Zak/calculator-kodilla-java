@@ -4,16 +4,16 @@ import java.util.Objects;
 
 public class Flight {
 
-    private String starFlight;
+    private String startFlight;
     private String endFlight;
 
-    public Flight(String starFlight, String endFlight) {
-        this.starFlight = starFlight;
+    public Flight(String startFlight, String endFlight) {
+        this.startFlight = startFlight;
         this.endFlight = endFlight;
     }
 
-    public String getStarFlight() {
-        return starFlight;
+    public String getStartFlight() {
+        return startFlight;
     }
 
     public String getEndFlight() {
@@ -25,18 +25,18 @@ public class Flight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return Objects.equals(starFlight, flight.starFlight) &&
+        return Objects.equals(startFlight, flight.startFlight) &&
                 Objects.equals(endFlight, flight.endFlight);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(starFlight, endFlight);
+        return Objects.hash(startFlight, endFlight);
     }
 
     @Override
     public String toString() {
         return "Flight: " +
-                "From: " + starFlight + " To: " + endFlight +"\n";
+                "From: " + startFlight + " To: " + endFlight +"\n";
     }
 }

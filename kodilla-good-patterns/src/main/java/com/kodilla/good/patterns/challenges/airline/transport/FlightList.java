@@ -28,7 +28,7 @@ public class FlightList implements FlightConnection{
     @Override
     public Set<Flight> findFlightFrom(String startFlight) {
         return flights.stream()
-                .filter(flight -> flight.getStarFlight().equals(startFlight))
+                .filter(flight -> flight.getStartFlight().equals(startFlight))
                 .collect(Collectors.toSet());
     }
 
@@ -41,21 +41,21 @@ public class FlightList implements FlightConnection{
 
     @Override
     public Set<Set<Flight>> findFlightConnection(Flight flight) {
-        Set<Set<Flight>> flightsList = new HashSet<>();
-        Set<Flight>startList = findFlightFrom(flight.getStarFlight());
+        Set<Set<Flight>> returnFlights = new HashSet<>();
+        Set<Flight>startList = findFlightFrom(flight.getStartFlight());
 
         if(flights.contains(flight)){
-            flightsList.add(new HashSet<>(Collections.singletonList(flight)));
+            returnFlights.add(new HashSet<>(Collections.singletonList(flight)));
         }
 
-        startList.forEach(f->{
-                    Flight flight1 = new Flight(f.getEndFlight(),flight.getEndFlight());
-                    if(flights.contains(flight1)){
-                        flightsList.add(new HashSet<>(Arrays.asList(f,flight1)));
+        startList.forEach(firstFlight->{
+                    Flight secondFlight = new Flight(firstFlight.getEndFlight(),flight.getEndFlight());
+                    if(flights.contains(secondFlight)){
+                        returnFlights.add(new HashSet<>(Arrays.asList(firstFlight,secondFlight)));
                     }
                 });
 
-        return flightsList;
+        return returnFlights;
     }
 
 }
