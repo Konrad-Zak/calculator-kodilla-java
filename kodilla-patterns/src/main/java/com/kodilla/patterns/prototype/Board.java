@@ -10,7 +10,7 @@ public final class Board extends Prototype {
     public Board(String name) {
         this.name = name;
     }
-
+///ssad
     public void setName(String name) {
         this.name = name;
     }
