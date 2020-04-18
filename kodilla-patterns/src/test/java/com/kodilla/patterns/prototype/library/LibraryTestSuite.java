@@ -32,38 +32,27 @@ public class LibraryTestSuite {
     }
 
     @Test
-    public void testShallowCopy(){
+    public void testShallowCopy() throws CloneNotSupportedException{
         //Given
-        Library clonedLibrary =null;
-        try {
-            clonedLibrary = library.shallowCopy();
-            clonedLibrary.setName("Set of books number 2");
-        } catch (CloneNotSupportedException e) {
-            System.err.println(Arrays.toString(e.getStackTrace()));
-        }
+        Library clonedLibrary = library.shallowCopy();
+        clonedLibrary.setName("Set of books number 2");
         //When
         library.getBooks().remove(new Book("title 8","author 8", LocalDate.now()));
         //Then
-        assert clonedLibrary != null;
         Assert.assertEquals(library.getBooks(),clonedLibrary.getBooks());
     }
 
     @Test
-    public void testDeepCopy(){
+    public void testDeepCopy() throws CloneNotSupportedException{
         //Given
-        Library clonedLibrary = null;
-        try {
-            clonedLibrary = library.deepCopy();
-            clonedLibrary.setName("Set of books number 3");
-        } catch (CloneNotSupportedException e) {
-            System.err.println(Arrays.toString(e.getStackTrace()));
-        }
+        Library clonedLibrary = library.deepCopy();
+        clonedLibrary.setName("Set of books number 3");
         //When
         library.getBooks().remove(new Book("title 8","author 8", LocalDate.now()));
         //Then
-        assert clonedLibrary != null;
         Assert.assertNotEquals(library.getBooks(),clonedLibrary.getBooks());
-        Assert.assertTrue(clonedLibrary.getBooks().size()> library.getBooks().size());
+        Assert.assertEquals(size,clonedLibrary.getBooks().size());
+        Assert.assertTrue(size > library.getBooks().size());
     }
 
 }
