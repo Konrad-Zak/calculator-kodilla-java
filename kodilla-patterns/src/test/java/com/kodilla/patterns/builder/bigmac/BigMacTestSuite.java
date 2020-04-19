@@ -20,11 +20,11 @@ public class BigMacTestSuite {
         String sauce = bigmac.getSauce();
         int ingredient = bigmac.getIngredients().size();
         int burger = bigmac.getBurgers();
-        boolean isSesame = bigmac.isBun();
+        boolean isBun = bigmac.isBun();
         //Then
         Assert.assertEquals("standard",sauce);
         Assert.assertEquals(3,ingredient);
         Assert.assertEquals(2,burger);
-        Assert.assertTrue(isSesame);
+        Assert.assertTrue(isBun);
     }
 }

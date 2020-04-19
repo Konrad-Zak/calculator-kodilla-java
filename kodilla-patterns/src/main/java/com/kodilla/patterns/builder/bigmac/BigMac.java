@@ -15,9 +15,9 @@ public class BigMac {
         private int burgers;
         private String sauce;
         private List<String> ingredients = new ArrayList<>();
-        private List<String> sauces = Arrays.asList("standard","1000 islands","barbecue");
-        private List<String> availableIngredients = Arrays.asList("lettuce", "onion", "bacon", "cucumber",
-                "chili peppers", "mushrooms", "shrimps", "cheese");
+        private static final List<String> SAUCES = Arrays.asList("standard","1000 islands","barbecue");
+        private static final List<String> AVAILABLE_INGREDIENTS = Arrays.asList("lettuce", "onion", "bacon",
+                "cucumber", "chili peppers", "mushrooms", "shrimps", "cheese");
 
         public BigMacBuilder bun(boolean bun){
             this.bun = bun;
@@ -30,7 +30,7 @@ public class BigMac {
         }
 
         public BigMacBuilder sauce(String sauce){
-            if (sauces.contains(sauce)){
+            if (SAUCES.contains(sauce)){
                 this.sauce = sauce;
             } else {
                 throw new IllegalStateException("There is no such sauce: " + sauce);
@@ -39,7 +39,7 @@ public class BigMac {
         }
 
         public BigMacBuilder ingredient(String ingredient){
-            if(availableIngredients.contains(ingredient)){
+            if(AVAILABLE_INGREDIENTS.contains(ingredient)){
                 ingredients.add(ingredient);
             } else {
                 throw new IllegalStateException("There is no such ingredient: " + ingredient);
