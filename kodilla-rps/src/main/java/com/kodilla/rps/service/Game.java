@@ -4,6 +4,7 @@ import com.kodilla.rps.io.DataReader;
 import com.kodilla.rps.movement.GameControlKeys;
 
 import java.util.InputMismatchException;
+import java.util.List;
 
 public class Game {
 
@@ -19,6 +20,7 @@ public class Game {
         runGame();
     }
 
+    List<Integer>
     public void runGame(){
         playGame();
         getGameResults();
