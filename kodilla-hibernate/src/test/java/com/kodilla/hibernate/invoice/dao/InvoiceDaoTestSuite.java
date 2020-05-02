@@ -19,8 +19,6 @@ public class InvoiceDaoTestSuite {
     InvoiceDao invoiceDao;
     @Autowired
     ItemDao itemDao;
-    @Autowired
-    ProductDao productDao;
 
     @Test
     public void testInvoiceDaoSave() {
@@ -39,13 +37,13 @@ public class InvoiceDaoTestSuite {
 
         //When
         invoiceDao.save(invoice);
-        int invoiceSize = invoice.getItems().size();
-        int id = product.getId();
-        Optional<Product> readProduct = productDao.findById(id);
+        int id =  invoice.getId();
+        Optional<Invoice> readInvoice = invoiceDao.findById(id);
 
         //Then
-        Assert.assertEquals(2, invoiceSize);
-        Assert.assertTrue(readProduct.isPresent());
+        Assert.assertTrue(readInvoice.isPresent());
+        readInvoice.ifPresent(value -> Assert.assertEquals("02/05/2020", value.getNumber()));
+        readInvoice.ifPresent(invoiceSize -> Assert.assertEquals(2,invoiceSize.getItems().size()));
 
         //CleanUp
         invoiceDao.deleteAll();
