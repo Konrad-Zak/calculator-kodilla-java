@@ -5,6 +5,11 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedNativeQuery(
+        name = "Company.retrieveCompanyWithStartLetters",
+        query = "SELECT * FROM companies where left(company_name,3) = :SHORT",
+        resultClass = Company.class
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
