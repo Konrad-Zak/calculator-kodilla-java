@@ -20,7 +20,6 @@ public class Game {
         runGame();
     }
 
-    List<Integer>
     public void runGame(){
         playGame();
         getGameResults();
