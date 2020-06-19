@@ -5,11 +5,18 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedNativeQuery(
-        name = "Employee.retrieveEmployeeWithCurrentLastName",
-        query = "SELECT * from employees where lastname = :LASTNAME",
-        resultClass = Employee.class
-)
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Employee.retrieveEmployeeWithCurrentLastName",
+                query = "SELECT * from employees where lastname = :LASTNAME",
+                resultClass = Employee.class
+        ),
+        @NamedNativeQuery(
+                name = "Employee.retrieveEmployeeWithFragmentLastName",
+                query = "SELECT * from employees where lastname like :ARG",
+                resultClass = Employee.class
+        )
+})
 @Entity
 @Table(name = "EMPLOYEES")
 public class Employee {
