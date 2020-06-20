@@ -13,4 +13,6 @@ import java.util.List;
 public interface CompanyDao extends CrudRepository<Company, Integer> {
     @Query
     List<Company> retrieveCompanyWithStartLetters(@Param("SHORT") String shortcut);
+    @Query
+    List<Company> retrieveCompanyWithFragmentText(@Param("ARG") String fragmentText);
 }
